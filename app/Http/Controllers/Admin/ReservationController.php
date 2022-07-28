@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Voiture;
 use App\Models\Reservation;
+use App\Enums\VoitureStatus;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ReservationStoreRequest;
-use App\Models\Voiture;
 
 class ReservationController extends Controller
 {
@@ -32,7 +33,7 @@ class ReservationController extends Controller
      */
     public function create()
     {
-        $voitures = Voiture::all();
+        $voitures = Voiture::where('status', VoitureStatus::Disponible)->get();
         return view('admin.reservations.create', compact('voitures'));
     }
 
@@ -44,9 +45,12 @@ class ReservationController extends Controller
      */
     public function store(ReservationStoreRequest $request)
     {
+
+
+
         Reservation::create($request->validated());
 
-        return to_route('admin.reservations.index')->with('succès', 'Une réservation à était créer');
+        return to_route('admin.reservations.index')->with('succès', 'La réservation a bien été créée');
     }
 
     /**

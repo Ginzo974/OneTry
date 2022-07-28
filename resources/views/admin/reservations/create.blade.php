@@ -83,8 +83,8 @@
                                 <div class="mt-1">
                                     @foreach ($voitures as $voiture)
                                     <label>
-                                        <input type="radio" name="voitures_id" value="{{ $voiture->id }}">
-                                        {{ $voiture->name }}
+                                        <input type="radio" name="voitures_id" value="{{ $voiture->id }}">{{
+                                        $voiture->name }}
                                         <img src="{{ Storage::url($voiture->image) }}" class="w-50 h-40 rounded">
                                     </label>
                                     @endforeach

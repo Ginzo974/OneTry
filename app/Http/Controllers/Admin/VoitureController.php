@@ -50,7 +50,7 @@ class VoitureController extends Controller
             'status' => $request->status,
         ]);
 
-        return to_route('admin.voitures.index')->with('succès', 'Une voiture était créer !');
+        return to_route('admin.voitures.index')->with('succès', 'Une voiture a bien été créée');
     }
 
     /**
@@ -88,6 +88,7 @@ class VoitureController extends Controller
         $request->validate([
             'name' => 'required',
             'description' => 'required',
+
             'prix' => 'required',
             'status' => 'required',
 
@@ -108,7 +109,7 @@ class VoitureController extends Controller
         ]);
 
 
-        return to_route('admin.voitures.index')->with('succès', 'La voiture est modifié');
+        return to_route('admin.voitures.index')->with('succès', 'La voiture est modifiée');
     }
 
     /**
@@ -122,6 +123,6 @@ class VoitureController extends Controller
     {
         $voiture->delete();
 
-        return to_route('admin.voitures.index')->with('danger', 'La voiture à était supprimé');
+        return to_route('admin.voitures.index')->with('danger', 'La voiture est supprimée');
     }
 }
