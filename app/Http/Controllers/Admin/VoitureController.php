@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Voiture;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\VoitureStoreRequest;
 
 class VoitureController extends Controller
@@ -27,8 +28,8 @@ class VoitureController extends Controller
      */
     public function create()
     {
-        
-        return view ('admin.voitures.create');
+
+        return view('admin.voitures.create');
     }
 
     /**
@@ -42,14 +43,14 @@ class VoitureController extends Controller
         $image = $request->file('image')->store('public/voitures');
 
         Voiture::create([
-            'nom' => $request->nom,
+            'name' => $request->name,
             'description' => $request->description,
             'image' => $image,
             'prix' => $request->prix,
             'status' => $request->status,
         ]);
 
-        return to_route('admin.voitures.index');
+        return to_route('admin.voitures.index')->with('succès', 'Une voiture était créer !');
     }
 
     /**
@@ -69,9 +70,10 @@ class VoitureController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Voiture $voiture)
     {
-        //
+
+        return view('admin.voitures.edit', compact('voiture'));
     }
 
     /**
@@ -81,9 +83,32 @@ class VoitureController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Voiture $voiture)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'prix' => 'required',
+            'status' => 'required',
+
+        ]);
+
+        $image = $voiture->image;
+        if ($request->hasFile('image')) {
+            Storage::delete($voiture->image);
+            $image = $request->file('image')->store('public/voitures');
+        }
+
+        $voiture->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'image' => $image,
+            'prix' => $request->prix,
+            'status' =>  $request->status,
+        ]);
+
+
+        return to_route('admin.voitures.index')->with('succès', 'La voiture est modifié');
     }
 
     /**
@@ -92,8 +117,11 @@ class VoitureController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Voiture $voiture)
+
     {
-        //
+        $voiture->delete();
+
+        return to_route('admin.voitures.index')->with('danger', 'La voiture à était supprimé');
     }
 }

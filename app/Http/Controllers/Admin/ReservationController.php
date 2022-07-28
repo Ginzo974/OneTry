@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Reservation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
-
+use App\Http\Requests\ReservationStoreRequest;
+use App\Models\Voiture;
 
 class ReservationController extends Controller
 {
@@ -17,7 +17,11 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        $reservations = Reservation::all();
+        // $reservations = Reservation::all();
+        $reservations = Reservation::join('voitures', 'reservations.voitures_id', '=', 'voitures.id')
+            ->get();
+        // dd($reservations);
+
         return view('admin.reservations.index', compact('reservations'));
     }
 
@@ -28,7 +32,8 @@ class ReservationController extends Controller
      */
     public function create()
     {
-        return view('admin.reservations.create');
+        $voitures = Voiture::all();
+        return view('admin.reservations.create', compact('voitures'));
     }
 
     /**
@@ -37,9 +42,11 @@ class ReservationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ReservationStoreRequest $request)
     {
-        //
+        Reservation::create($request->validated());
+
+        return to_route('admin.reservations.index')->with('succès', 'Une réservation à était créer');
     }
 
     /**

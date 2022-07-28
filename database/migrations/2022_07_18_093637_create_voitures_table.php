@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('voitures', function (Blueprint $table) {
             $table->id();
-            $table->string('nom');
+            $table->string('name');
             $table->text('description');
             $table->string('image');
-            $table->decimal('prix');
+            $table->integer('prix');
             $table->string('status')->default("disponible");
             $table->timestamps();
         });

@@ -31,104 +31,45 @@
                                 <th scope="col" class="py-3 px-6">
                                     Statut
                                 </th>
+                                <th scope="col" class="py-3 px-6">
+                                    Modif/Supp
+                                </th>
                             </tr>
                         </thead>
+                        </tr>
+                        @foreach ($voitures as $voiture)
                         <tbody>
-                            <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                <th scope="row"
-                                    class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    Apple MacBook Pro 17"
-                                </th>
-                                <td class="py-4 px-6">
-                                    Sliver
-                                </td>
-                                <td class="py-4 px-6">
-                                    Laptop
-                                </td>
-                                <td class="py-4 px-6">
-                                    $2999
-                                </td>
-                                <td class="py-4 px-6">
-                                    <a href="#"
-                                        class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                </td>
-                            </tr>
                             <tr class="bg-gray-50 border-b dark:bg-gray-800 dark:border-gray-700">
                                 <th scope="row"
                                     class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    Microsoft Surface Pro
+                                    {{ $voiture->name }}
                                 </th>
                                 <td class="py-4 px-6">
-                                    White
+                                    {{ $voiture->description }}
                                 </td>
                                 <td class="py-4 px-6">
-                                    Laptop PC
+                                    <img src="{{ Storage::url($voiture->image) }}" class="w-50 h-50 rounded">
                                 </td>
                                 <td class="py-4 px-6">
-                                    $1999
+                                    {{ $voiture->prix }}€
                                 </td>
                                 <td class="py-4 px-6">
-                                    <a href="#"
-                                        class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                    {{ $voiture->status }}
+                                </td>
+                                <td class="py-4 px-6">
+                                    <div class="flex space-x-2">
+                                        <a href="{{ route('admin.voitures.edit', $voiture->id) }}"
+                                            class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded lg text-white">Modifier</a>
+                                        <form class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded lg text-white"
+                                            method="POST" action="{{ route('admin.voitures.destroy', $voiture->id) }}"
+                                            onsubmit="return confirm('Êtes vous sûr de vouloir supprimer?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit">Supprimer</button>
+                                        </form>
                                 </td>
                             </tr>
-                            <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                <th scope="row"
-                                    class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    Magic Mouse 2
-                                </th>
-                                <td class="py-4 px-6">
-                                    Black
-                                </td>
-                                <td class="py-4 px-6">
-                                    Accessories
-                                </td>
-                                <td class="py-4 px-6">
-                                    $99
-                                </td>
-                                <td class="py-4 px-6">
-                                    <a href="#"
-                                        class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                </td>
-                            </tr>
-                            <tr class="bg-gray-50 border-b dark:bg-gray-800 dark:border-gray-700">
-                                <th scope="row"
-                                    class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    Google Pixel Phone
-                                </th>
-                                <td class="py-4 px-6">
-                                    Gray
-                                </td>
-                                <td class="py-4 px-6">
-                                    Phone
-                                </td>
-                                <td class="py-4 px-6">
-                                    $799
-                                </td>
-                                <td class="py-4 px-6">
-                                    <a href="#"
-                                        class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row"
-                                    class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    Apple Watch 5
-                                </th>
-                                <td class="py-4 px-6">
-                                    Red
-                                </td>
-                                <td class="py-4 px-6">
-                                    Wearables
-                                </td>
-                                <td class="py-4 px-6">
-                                    $999
-                                </td>
-                                <td class="py-4 px-6">
-                                    <a href="#"
-                                        class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                </td>
-                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

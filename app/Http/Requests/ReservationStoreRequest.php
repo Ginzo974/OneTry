@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests;
 
-
+use App\Rules\DateBetween;
 use Illuminate\Foundation\Http\FormRequest;
 
-class VoitureStoreRequest extends FormRequest
+class ReservationStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,11 +25,12 @@ class VoitureStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required'],
-            'image' => ['required', 'image'],
-            'description' => ['required'],
-            'prix' => ['required'],
-            'status' => ['required'],
+            'nom' => ['required'],
+            'prenom' => ['required'],
+            'email' => ['required', 'email'],
+            'num_tel' => ['required'],
+            'date_res' => ['required', 'date', new DateBetween],
+            'voitures_id' => ['required'],
         ];
     }
 }
