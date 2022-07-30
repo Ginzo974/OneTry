@@ -46,7 +46,17 @@ class ReservationController extends Controller
     public function store(ReservationStoreRequest $request)
     {
 
+        $daterequest = $request->date_res;
+        $voiturerequest = $request->voitures_id;
 
+        $reservation = Reservation::query()
+            ->where('date_res', '=', $daterequest)
+            ->where('voitures_id', '=', $voiturerequest)
+            ->get();
+
+        if (count($reservation) != 0) {
+            return back()->with('danger', 'Désolé cette voiture est déjà réservé à ce jour');
+        }
 
         Reservation::create($request->validated());
 

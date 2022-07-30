@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Voiture;
+use App\Models\Reservation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\VoitureStoreRequest;
+use Illuminate\Support\Facades\DB;
 
 class VoitureController extends Controller
 {
@@ -118,11 +120,22 @@ class VoitureController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Voiture $voiture)
+    public function destroy(Voiture $id_voiture, $id_voiture2)
 
     {
-        $voiture->delete();
 
-        return to_route('admin.voitures.index')->with('danger', 'La voiture est supprimée');
+        $reservations = Reservation::query()
+            ->where('voitures_id', '=', $id_voiture2)
+            ->get();
+
+        if (count($reservations) == null) {
+            DB::table('voitures')
+                ->where('id', '=', $id_voiture2)
+                ->delete();
+            return redirect()->back()->with('succès', 'la voiture a été supprimé');
+        }
+
+
+        return redirect()->back()->with('danger', 'voiture n\'est pas a supprimé');
     }
 }
