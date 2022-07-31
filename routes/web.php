@@ -1,13 +1,13 @@
 <?php
 
 
-use App\Http\Controllers\Frontend\Voit;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\VoitureController;
-use App\Http\Controllers\Frontend\ResController;
-use App\Http\Controllers\Frontend\VoitController;
+use App\Http\Controllers\Frontend\WelcomeController;
 use App\Http\Controllers\Admin\ReservationController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Frontend\VoituresController as FrontendVoituresController;
+use App\Http\Controllers\Frontend\ReservationsController as FrontendReservationsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,8 +24,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/allvoitures', VoitController::class, 'index')->name('allvoitures');
-
+Route::get('/', [WelcomeController::class, 'index']);
+Route::get('/allvoitures', [FrontendVoituresController::class, 'index'])->name('voiture.index');
+Route::get('/res', [FrontendReservationsController::class, 'page_res'])->name('res.page_res');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -33,7 +34,7 @@ Route::get('/dashboard', function () {
 
 Route::middleware(['auth', 'App\Http\Middleware\Admin'])->name('admin.')->prefix('admin')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('index');
-    Route::ressource('/voitures', VoitureController::class);
+    Route::resource('/voitures', VoitureController::class);
     Route::resource('/reservations', ReservationController::class);
 });
 

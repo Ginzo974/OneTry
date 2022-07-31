@@ -5,11 +5,10 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class Voit extends Controller
+class ReservationsController extends Controller
 {
-    public function index()
+    public function page_res()
     {
-
-        return 'voitures index';
+        return view('FrontendReservation.page_res');
     }
 }

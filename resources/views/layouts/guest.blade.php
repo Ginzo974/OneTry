@@ -42,7 +42,7 @@
                 <a class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 hover:text-green-400"
                     href="/">Accueil</a>
                 <a class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 hover:text-green-400"
-                    href="{{ route('allvoitures.index') }}">Nos Voitures</a>
+                    href="{{ route('voiture.index') }}">Nos Voitures</a>
                 <a class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 hover:text-green-400"
                     href="{{ route('res.page_res') }}">Faire une réservation</a>
                 <div>

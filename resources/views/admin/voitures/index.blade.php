@@ -67,6 +67,7 @@
                                             @method('DELETE')
                                             <button type="submit">Supprimer</button>
                                         </form>
+                                    </div>
                                 </td>
                             </tr>
                             @endforeach

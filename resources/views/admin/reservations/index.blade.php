@@ -59,12 +59,22 @@
                                     {{ $reservation->date_res }}
                                 </td>
                                 <td class="py-4 px-6">
-                                    {{ $reservation->name}}
+                                    {{ $reservation->voiture->name}}
 
                                 </td>
                                 <td class="py-4 px-6">
-                                    <a href="#"
-                                        class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                    <div class="flex space-x-2">
+                                        <a href="{{ route('admin.reservations.edit', $reservation->id) }}"
+                                            class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded lg text-white">Modifier</a>
+                                        <form class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded lg text-white"
+                                            method="POST"
+                                            action="{{ route('admin.reservations.destroy', $reservation->id) }}"
+                                            onsubmit="return confirm('Êtes vous sûr de vouloir supprimer?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit">Supprimer</button>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                             @endforeach
