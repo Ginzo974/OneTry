@@ -13,4 +13,9 @@ class WelcomeController extends Controller
         $specials = Voiture::all();
         return view('welcome', compact('specials'));
     }
+
+    public function merci()
+    {
+        return view('merci');
+    }
 }

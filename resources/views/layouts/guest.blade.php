@@ -39,34 +39,22 @@
             <!-- Mobile Menu open: "block", Menu closed: "hidden" -->
             <div :class="isOpen ? 'flex' : 'hidden'"
                 class="flex-col mt-8 space-y-4 md:flex md:space-y-0 md:flex-row md:items-center md:space-x-10 md:mt-0">
-                <a class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 hover:text-green-400"
-                    href="/">Accueil</a>
-                <a class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 hover:text-green-400"
+                <a class="text-transparent bg-clip-text bg-orange-500 hover:text-orange-400" href="/">Accueil</a>
+                <a class="text-transparent bg-clip-text bg-orange-500 hover:text-orange-400"
                     href="{{ route('voiture.index') }}">Nos Voitures</a>
-                <a class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 hover:text-green-400"
+                <a class="text-transparent bg-clip-text bg-orange-500 hover:text-orange-400"
                     href="{{ route('res.page_res') }}">Faire une réservation</a>
-                <div>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-400" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                    </svg>
-                </div>
+                {{-- href="{{ route('voiture.index') }}">Faire une réservation</a> --}}
             </div>
         </nav>
     </div>
     <div class="font-sans text-gray-900 antialiased min-h-screen">
+
         {{ $slot }}
     </div>
     <footer class="bg-gray-800 border-t border-gray-200">
         <div class="container flex flex-wrap items-center justify-center px-4 py-8 mx-auto lg:justify-between">
             <div class="flex flex-wrap justify-center">
-                <ul class="flex items-center space-x-4 text-white">
-                    <li>Home</li>
-                    <li>About</li>
-                    <li>Contact</li>
-                    <li>Terms</li>
-                </ul>
             </div>
             <div class="flex justify-center mt-4 lg:mt-0">
                 <a>

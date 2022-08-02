@@ -17,6 +17,13 @@ class DateBetween implements Rule
         //
     }
 
+    protected $pickupDate;
+
+    protected function isWeekEnd($pickupDate)
+    {
+        return $pickupDate->dayOfWeek == 0 || $pickupDate->dayOfWeek == 6;
+    }
+
     /**
      * Determine if the validation rule passes.
      *
@@ -29,7 +36,9 @@ class DateBetween implements Rule
         $pickupDate = Carbon::parse($value);
         $lastDate = Carbon::now()->addWeek();
 
-        return $value >= now() && $value <= $lastDate;
+        $this->pickupDate = $pickupDate;
+
+        return !$this->isWeekEnd($pickupDate) && $pickupDate >= now() && $pickupDate <= $lastDate;
     }
 
     /**
@@ -39,6 +48,13 @@ class DateBetween implements Rule
      */
     public function message()
     {
-        return 'Veuillez choisir une date à partir de ce jour';
+        $lastDate = Carbon::now()->addWeek();
+        if ($this->isWeekEnd($this->pickupDate)) {
+            return redirect()->back()->with('error', 'Nous ne travaillons pas le weekend.');
+        } else if (!($this->pickupDate >= now() && $this->pickupDate <= $lastDate)) {
+            return 'Choisissez une date à partir de maintenant et au plus tard dans une semaine.';
+        }
+
+        // dd($this->errorType);
     }
 }

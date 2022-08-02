@@ -6,8 +6,8 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\VoitureController;
 use App\Http\Controllers\Frontend\WelcomeController;
 use App\Http\Controllers\Admin\ReservationController;
-use App\Http\Controllers\Frontend\VoituresController as FrontendVoituresController;
-use App\Http\Controllers\Frontend\ReservationsController as FrontendReservationsController;
+use App\Http\Controllers\Frontend\VoituresController;
+use App\Http\Controllers\Frontend\ReservationsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,9 +24,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/', [WelcomeController::class, 'index']);
-Route::get('/allvoitures', [FrontendVoituresController::class, 'index'])->name('voiture.index');
-Route::get('/res', [FrontendReservationsController::class, 'page_res'])->name('res.page_res');
+Route::get('/', [WelcomeController::class, 'index'])->name('indexUser');
+Route::get('/allvoitures', [VoituresController::class, 'index'])->name('voiture.index');
+Route::get('/res', [ReservationsController::class, 'page_res'])->name('res.page_res');
+
+// Route::post('/res', [ReservationsController::class, 'storepage_res'])->name('res.store.pageres');
+Route::post('/resaction', [ReservationsController::class, 'pageResa'])->name('pageResa');
+
+Route::get('/resaupdate/{id_resa}', [ReservationController::class, 'update'])->name('updateResa');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
