@@ -11,8 +11,7 @@
     </div>
     <!-- Main Hero Content -->
     <div class=" container max-w-lg px-4 py-32 mx-auto text-left bg-center bg-no-repeat bg-cover md:max-w-none
-            md:text-center"
-        style="background-image: url('https://pixabay.com/get/g5580edf799bc63ce6da97f262f5ab1ec92e7b39b7749c41234e48d75866839f86c91f64fc8cd8c8ae459ab22b834ec76129775d64b451537e00a953fc5f7321763bc0ee1c613be888fcbe8a3e5f04dc6_1920.jpg')">
+            md:text-center" style="background-image: url('/images/porsche.jpg')">
         <h1
             class="font-mono text-3xl font-extrabold text-transparent bg-clip-text bg-white md:text-center sm:leading-none lg:text-5xl">
             <span class="inline md:block">Bienvenue à OneTry</span>
