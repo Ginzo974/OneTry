@@ -50,11 +50,9 @@ class DateBetween implements Rule
     {
         $lastDate = Carbon::now()->addWeek();
         if ($this->isWeekEnd($this->pickupDate)) {
-            return redirect()->back()->with('error', 'Nous ne travaillons pas le weekend.');
+            return 'Nous ne travaillons pas le weekend.';
         } else if (!($this->pickupDate >= now() && $this->pickupDate <= $lastDate)) {
             return 'Choisissez une date à partir de maintenant et au plus tard dans une semaine.';
         }
-
-        // dd($this->errorType);
     }
 }

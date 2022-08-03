@@ -22,39 +22,24 @@ class ReservationsController extends Controller
 
     public function pageResa(ReservationStoreRequest $request)
     {
-        // dd('1');
-        $daterequest = $request->date_res;
-        $voiturerequest = $request->voitures_id;
+
+        $daterequest = $request->date_res; // récupère la date demandée 
+        $voiturerequest = $request->voitures_id; // récupère la voiture demandée 
         $reservation = Reservation::query()
-            ->where('date_res', '=', $daterequest)
-            ->where('voitures_id', '=', $voiturerequest)
-            ->get();
-        // dd(count($reservation));
+            ->where('date_res', '=', $daterequest) // ou dans la colonne date_res est égale à la date demandée
+            ->where('voitures_id', '=', $voiturerequest) // ou dans la colonne voitures_id est égale à la voiture demandée
+            ->get(); //récupère
+
         if (count($reservation) != 0) {
             return redirect()->back()
                 ->with('error', "Pas de réservation disponible à cette date.");
+            // si la réservation est ≠ de 0 (une réservation identique a cette date), alors il sera redirigé sur la même page
+            // avec une erreur 
+
         } else {
             Reservation::create($request->validated());
             return redirect()->route('indexUser')
                 ->with('success', 'réservation réussie');
-        }
+        } // si la réservation est validé alors il sera il sera redirigé sur la page 'indexUser' avec un message 'succès'
     }
-
-    // public function storepage_res(ReservationStoreRequest $request)
-    // {
-    //     dd("request");
-    //     $daterequest = $request->date_res;
-    //     $voiturerequest = $request->voitures_id;
-    //     $reservation = Reservation::query()
-    //         ->where('date_res', '=', $daterequest)
-    //         ->where('voitures_id', '=', $voiturerequest)
-    //         ->get();
-    //     if (count($reservation) != 0) {
-    //         return back();
-    //     }
-
-
-    //     Reservation::create($request->validated());
-    //     return to_route('merci');
-    // }
 }

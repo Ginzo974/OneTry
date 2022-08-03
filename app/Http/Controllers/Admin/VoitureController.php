@@ -42,17 +42,18 @@ class VoitureController extends Controller
      */
     public function store(VoitureStoreRequest $request)
     {
-        $image = $request->file('image')->store('public/voitures');
+        $image = $request->file('image')->store('public/voitures'); // l'image qui sera récupérer sera stocker dans 'public/voiture'
 
         Voiture::create([
-            'name' => $request->name,
-            'description' => $request->description,
-            'image' => $image,
-            'prix' => $request->prix,
-            'status' => $request->status,
+            'name' => $request->name, // récupère le nom dans le champ input et le créer dans la base de données
+            'description' => $request->description, // récupère la description dans le champ input et le créer dans la base de données
+            'image' => $image, // récupère l'image dans le champ input et le créer dans la base de données
+            'prix' => $request->prix, // récupère le prix dans le champ input et le créer dans la base de données
+            'status' => $request->status, // récupère le statut dans le champ input et le créer dans la base de données
         ]);
 
         return to_route('admin.voitures.index')->with('succès', 'Une voiture a bien été créée');
+        // retourne vers la vue 'admin.voitures.index' avec un message success
     }
 
     /**
@@ -88,30 +89,31 @@ class VoitureController extends Controller
     public function update(Request $request, Voiture $voiture)
     {
         $request->validate([
-            'name' => 'required',
-            'description' => 'required',
+            'name' => 'required', // Dans la base de données, la colonne nom est obligatoire pour pouvoir valider la modification
+            'description' => 'required', // Dans la base de données, la colonne description est obligatoire pour pouvoir valider la modification
 
-            'prix' => 'required',
-            'status' => 'required',
+            'prix' => 'required', // Dans la base de données, la colonne prix est obligatoire pour pouvoir valider la modification
+            'status' => 'required', // Dans la base de données, la colonne status est obligatoire pour pouvoir valider la modification
 
         ]);
 
-        $image = $voiture->image;
-        if ($request->hasFile('image')) {
+        $image = $voiture->image; // $image récupère l'image de la voiture concerné dans la bdd 
+        if ($request->hasFile('image')) { // si l'image concerné est supprimé alors la modification se met en place 
             Storage::delete($voiture->image);
             $image = $request->file('image')->store('public/voitures');
         }
 
         $voiture->update([
-            'name' => $request->name,
-            'description' => $request->description,
-            'image' => $image,
-            'prix' => $request->prix,
-            'status' =>  $request->status,
+            'name' => $request->name, // récupère le nom dans le champ input et le créer dans la base de données
+            'description' => $request->description, // récupère la description dans le champ input et le créer dans la base de données
+            'image' => $image, // récupère l'image dans le champ input et le créer dans la base de données
+            'prix' => $request->prix, // récupère le prix dans le champ input et le créer dans la base de données
+            'status' =>  $request->status, // récupère le statut dans le champ input et le créer dans la base de données
         ]);
 
 
         return to_route('admin.voitures.index')->with('succès', 'La voiture est modifiée');
+        // retourne vers la vue 'admin.voitures.index' avec un message success
     }
 
     /**
