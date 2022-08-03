@@ -134,7 +134,7 @@ class VoitureController extends Controller
             DB::table('voitures')
                 ->where('id', '=', $id_voiture2)
                 ->delete();
-            return redirect()->back()->with('warning', 'la voiture a été supprimé');
+            return redirect()->back()->with('danger', 'la voiture a été supprimé');
         }
 
 
